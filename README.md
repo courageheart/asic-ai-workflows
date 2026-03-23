@@ -36,8 +36,6 @@ This repository targets real-world semiconductor workflows, including:
 
 ## Repository Structure
 
-## Repository Structure
-
 - `skills/` — Reusable AI engineering skills  
 - `rules/` — Static domain knowledge and constraints  
 - `flows/` — Multi-step engineering workflows  
