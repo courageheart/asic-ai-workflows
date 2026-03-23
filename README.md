@@ -49,13 +49,17 @@ Each component has a clear responsibility and is designed to be composable.
 
 ---
 
-## Core Philosophy
+## Design Principles
 
-- GitHub is the **source of truth**
-- The website is a **presentation layer**
-- Focus on **content and functionality first**
-- Prefer **structured artifacts over prompts**
-- Build **reusable engineering workflows**
+This project follows a set of practical design principles:
+
+- Focus on real engineering problems  
+- Prefer structured, reusable artifacts over ad-hoc prompts  
+- Ensure outputs are testable and reproducible  
+- Build composable workflows from simple components  
+- Prioritize functionality over presentation  
+
+These principles guide the development of skills, rules, and flows.
 
 ---
 
