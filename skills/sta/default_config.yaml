@@ -1,0 +1,66 @@
+# Default STA analysis configuration
+# Users can override any field by providing their own config file.
+#
+# Depth model assumes synthesis will use optimized structures (CLA adders,
+# Wallace tree multipliers) which is what real tools produce. For worst-case
+# ripple-carry estimates, override adder/subtractor/multiply with the
+# ripple_* variants below.
+
+depth_thresholds:
+  critical: 20
+  hard: 10
+  moderate: 5
+  # anything below moderate = "easy"
+
+gate_depth_model:
+  # ---- Arithmetic (synthesis-realistic defaults) ----
+  adder: "4 + 2 * ceil(log2(W))"       # CLA / prefix-tree adder (e.g. 32-bit ≈ 14)
+  subtractor: "4 + 2 * ceil(log2(W))"  # same as adder (complement + carry-in)
+  incrementer: "2 * ceil(log2(W))"      # half-adder tree (e.g. 32-bit ≈ 10)
+  multiply: "ceil(log2(W)) + 4 + 2 * ceil(log2(W))"  # Wallace/Dadda CSA tree + final CPA (e.g. 32-bit ≈ 23)
+  compare_eq: "1 + ceil(log2(W))"       # XOR per bit + AND tree
+  compare_lt: "4 + 2 * ceil(log2(W))"  # same structure as adder (subtract and check sign)
+
+  # ---- Worst-case ripple variants (for conservative analysis) ----
+  # Uncomment these and comment out the above to use ripple-carry estimates:
+  # adder: "2 * W"               # ripple carry (2 gates per bit)
+  # subtractor: "2 * W"
+  # incrementer: "W"             # half-adder chain
+  # multiply: "2 * W"            # array multiplier
+  # compare_lt: "W"              # ripple compare
+
+  # ---- Muxes ----
+  mux_2to1: 2                    # AND-OR implementation
+  mux_4to1: 4                    # 2 levels of 2:1 mux
+  mux_Nto1: "2 * ceil(log2(N))" # tree of 2:1 muxes
+  ternary: 2                     # same as 2:1 mux
+  case_stmt: "2 * ceil(log2(cases))"  # mux tree
+
+  # ---- Reductions ----
+  and_reduce: "ceil(log2(W))"
+  or_reduce: "ceil(log2(W))"
+  xor_reduce: "ceil(log2(W))"
+
+  # ---- Shifts ----
+  shift_const: 0                 # wiring only
+  barrel_shift: "2 * ceil(log2(W))"  # log2(W) mux stages, each 2 levels
+
+  # ---- Single gates ----
+  and_gate: 1
+  or_gate: 1
+  xor_gate: 1
+  not_gate: 1
+
+  # ---- Wiring (zero depth) ----
+  concat: 0
+  bit_select: 0
+
+  # ---- Compound patterns ----
+  priority_if_else: "2 * N"      # N = number of branches, chained muxes
+  encoder: "ceil(log2(W))"       # priority encoder
+  decoder: 2                     # AND of select bits
+
+report:
+  max_paths: 0           # 0 = all paths (no cap)
+  include_easy: false     # omit easy paths from crossings list
+  sort_by: "depth"        # descending by estimated depth
