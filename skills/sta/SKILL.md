@@ -2,12 +2,13 @@
 name: sta-analysis
 description: >
   Estimate combinational logic depth on register-to-register paths in Verilog or
-  SystemVerilog RTL. Use this skill whenever the user asks to find timing-critical
+  SystemVerilog RTL. Use this skill whenever the user asks to find or analyze timing
   paths, estimate logic depth, check for deep combinational chains, review RTL for
   timing closure risk, or wants a pre-synthesis timing analysis. Also trigger when
   the user points to an RTL module and asks "will this meet timing?" or "what are
   the critical paths?", even without saying "STA". This is a pre-synthesis estimate —
-  it helps engineers prioritize paths before running DC/Genus.
+  it helps engineers prioritize paths before running a real EDA synthesis tool
+  like Design Compiler, Fusion Compiler or Genus.
 ---
 
 # Pre-Synthesis STA Skill
@@ -46,7 +47,7 @@ provided, use the defaults in `references/default_config.yaml`. The config contr
   - Priority if-else chain: **2 * N** (N branches, chained muxes)
 
   The default model assumes synthesis will use optimized structures, which is
-  what real tools (DC, Genus) produce. For worst-case ripple-carry estimates,
+  what real tools (FC, Genus) produce. For worst-case ripple-carry estimates,
   the config file includes commented-out ripple variants that users can enable.
 
 - **`report`** — output controls:
