@@ -1,17 +1,18 @@
 ---
-name: sta-analysis
+name: rtl-timing-path-analyzer
 description: >
-  Estimate combinational logic depth on register-to-register paths in Verilog or
-  SystemVerilog RTL. Use this skill whenever the user asks to find or analyze timing
-  paths, estimate logic depth, check for deep combinational chains, review RTL for
-  timing closure risk, or wants a pre-synthesis timing analysis. Also trigger when
-  the user points to an RTL module and asks "will this meet timing?" or "what are
-  the critical paths?", even without saying "STA". This is a pre-synthesis estimate —
-  it helps engineers prioritize paths before running a real EDA synthesis tool
-  like Design Compiler, Fusion Compiler or Genus.
+  Analyze Verilog or SystemVerilog RTL for pre-synthesis timing risk by estimating
+  combinational logic depth on register-to-register paths. Use this skill whenever
+  the user asks to find or analyze timing paths, estimate logic depth, check for
+  deep combinational chains, review RTL for timing closure risk, or wants a
+  pre-synthesis timing analysis. Also trigger when the user points to an RTL
+  module and asks "will this meet timing?" or "what are the critical paths?",
+  even without saying "STA". This is a pre-synthesis estimate that helps
+  engineers prioritize paths before running a real EDA synthesis tool like
+  Design Compiler, Fusion Compiler or Genus.
 ---
 
-# Pre-Synthesis STA Skill
+# RTL Timing Path Analyzer Skill
 
 Estimate gate-level combinational depth on every register-to-register path in
 Verilog/SystemVerilog RTL. Produce a ranked YAML report of timing paths ordered by
@@ -24,7 +25,7 @@ structurally deep paths before synthesis.
 ## Configuration
 
 The user may provide an optional config YAML to override defaults. If none is
-provided, use the defaults in `references/default_config.yaml`. The config controls:
+provided, use the defaults in `default_config.yaml`. The config controls:
 
 - **`depth_thresholds`** — gate-level cutoffs for difficulty categories:
   - `critical`: ≥ 20 (default)
@@ -55,7 +56,7 @@ provided, use the defaults in `references/default_config.yaml`. The config contr
   - `include_easy`: whether to list easy paths (default: false)
   - `sort_by`: `"depth"` descending (default)
 
-Read `references/default_config.yaml` for the full schema with all defaults.
+Read `default_config.yaml` for the full schema with all defaults.
 
 ## Analysis
 

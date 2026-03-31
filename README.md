@@ -67,8 +67,8 @@ A **skill** is a reusable AI capability that solves a specific engineering task.
 
 Examples:
 
-- STA Summary Analyzer  
-- CDC Violation Classifier  
+- RTL Timing Path Analyzer  
+- RTL CDC Linter  
 - Lint Warning Explainer  
 - Simulation Failure Analyzer  
 - UVM Test Generator  

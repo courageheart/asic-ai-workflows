@@ -1,16 +1,16 @@
 ---
-name: cdc-analysis
+name: rtl-cdc-linter
 description: >
-  Analyze Verilog or SystemVerilog RTL for clock domain crossing (CDC) violations.
+  Lint Verilog or SystemVerilog RTL for clock domain crossing (CDC) violations.
   Use this skill whenever the user asks to check for CDC issues, find unsynchronized
   crossings, review multi-clock designs, audit clock domain safety, or look for
   metastability risks in HDL code. Also trigger when the user pastes or points to
   an RTL module with multiple clocks and asks for a review, even if they don't
-  explicitly say "CDC". This is a pre-EDA lint — it catches issues early, before
+  explicitly say "CDC". This is a pre-EDA lint that catches issues early, before
   formal CDC tools like Spyglass or Meridian run.
 ---
 
-# CDC Analysis Skill
+# RTL CDC Linter Skill
 
 Analyze Verilog/SystemVerilog RTL for clock domain crossing violations. Produce a
 structured YAML report catching CDC issues early — before formal EDA tools run.
