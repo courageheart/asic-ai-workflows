@@ -1,0 +1,13 @@
+{
+  "eval_name": "naming-only-sync-trap",
+  "skill": "rtl-cdc-linter",
+  "input_files": [
+    "datasets/fixtures/cdc/naming_only_sync_trap.sv"
+  ],
+  "expected_output": "evals/smoke/rtl-cdc-linter/naming-only-sync-trap/expected.yaml",
+  "schema": "schemas/cdc-report.schema.json",
+  "assertions": [
+    "does not treat _sync naming as proof of synchronization",
+    "reports the unsynchronized single-bit crossing as high severity"
+  ]
+}

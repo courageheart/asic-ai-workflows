@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RTL Timing Path Analyzer Report",
+  "type": "object",
+  "required": [
+    "module",
+    "file",
+    "config",
+    "registers",
+    "paths",
+    "unresolved",
+    "summary"
+  ],
+  "properties": {
+    "module": {
+      "type": "string"
+    },
+    "file": {
+      "type": "string"
+    },
+    "config": {
+      "type": "string"
+    },
+    "registers": {
+      "type": "array"
+    },
+    "paths": {
+      "type": "array"
+    },
+    "unresolved": {
+      "type": "array"
+    },
+    "summary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

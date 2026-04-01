@@ -52,6 +52,11 @@ Current repository contents:
 - `rules/common/output-discipline.md` — Shared structured-output rule  
 - `rules/cdc/classification.md` — CDC synchronizer proof and severity mapping  
 - `rules/timing/register-evidence.md` — Timing register proof and unresolved-object handling  
+- `schemas/` — Report schemas for the currently implemented skills  
+- `datasets/fixtures/` — RTL smoke fixtures for CDC and timing analysis  
+- `evals/smoke/` — Smoke-eval metadata and golden outputs for current skills  
+- `scripts/` — Local and CI validation scripts for repo structure and smoke assets  
+- `.github/workflows/ci.yml` — Bootstrap CI checks for repo lint, skill contracts, and smoke assets  
 
 ---
 
@@ -111,6 +116,15 @@ Rules are used by:
 - Skills
 - Flows
 - Agents
+
+Current validation approach:
+
+- repo-structure linting
+- skill contract checks
+- schema-backed smoke-eval asset validation
+
+The current smoke layer validates fixtures, metadata, and golden outputs. It does
+not yet execute live LLM runs against the corpus.
 
 ---
 

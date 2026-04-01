@@ -1,0 +1,62 @@
+{
+  "module": "cross_module_path",
+  "file": "datasets/fixtures/timing/cross_module_path_top.sv",
+  "config": "default",
+  "registers": [
+    {
+      "name": "a_r",
+      "width": 8,
+      "clock": "clk",
+      "source": "always_ff",
+      "line": 12
+    },
+    {
+      "name": "y_r",
+      "width": 8,
+      "clock": "clk",
+      "source": "always_ff",
+      "line": 22
+    }
+  ],
+  "paths": [
+    {
+      "id": "PATH-001",
+      "from": "a_r",
+      "to": "y_r",
+      "depth": 10,
+      "difficulty": "hard",
+      "stages": [
+        {
+          "op": "adder",
+          "width": 8,
+          "depth": 10,
+          "line": 6
+        }
+      ],
+      "crosses_module": true,
+      "module_path": [
+        "cross_module_path",
+        "add8"
+      ],
+      "description": "The a_r to y_r path traverses the add8 submodule and includes one 8-bit adder stage.",
+      "suggestion": "Pipeline the add8 result or restructure the surrounding logic to reduce the hard cross-module path."
+    }
+  ],
+  "unresolved": [],
+  "summary": {
+    "total_registers": 2,
+    "total_paths": 1,
+    "by_difficulty": {
+      "critical": 0,
+      "hard": 1,
+      "moderate": 0,
+      "easy": 0
+    },
+    "deepest_path": {
+      "id": "PATH-001",
+      "depth": 10,
+      "from": "a_r",
+      "to": "y_r"
+    }
+  }
+}

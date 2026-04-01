@@ -1,0 +1,39 @@
+{
+  "module": "naming_only_sync_trap",
+  "file": "datasets/fixtures/cdc/naming_only_sync_trap.sv",
+  "clock_domains": [
+    {
+      "name": "src_clk"
+    },
+    {
+      "name": "dst_clk"
+    }
+  ],
+  "crossings": [
+    {
+      "id": "CDC-001",
+      "signal": "data_sync",
+      "width": 1,
+      "source_domain": "src_clk",
+      "dest_domain": "dst_clk",
+      "line": 14,
+      "direction": "src_clk -> dst_clk",
+      "synchronized": false,
+      "sync_method": "none",
+      "severity": "high",
+      "description": "Signal data_sync is only named like a synchronizer and is still consumed unsafely in dst_clk.",
+      "fix": "Add a 2-FF synchronizer in the dst_clk domain before dst_q consumes data_sync."
+    }
+  ],
+  "summary": {
+    "total_crossings": 1,
+    "violations": 1,
+    "by_severity": {
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    }
+  }
+}

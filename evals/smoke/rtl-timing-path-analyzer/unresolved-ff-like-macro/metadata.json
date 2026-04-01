@@ -1,0 +1,13 @@
+{
+  "eval_name": "unresolved-ff-like-macro",
+  "skill": "rtl-timing-path-analyzer",
+  "input_files": [
+    "datasets/fixtures/timing/unresolved_ff_like_macro.sv"
+  ],
+  "expected_output": "evals/smoke/rtl-timing-path-analyzer/unresolved-ff-like-macro/expected.yaml",
+  "schema": "schemas/timing-report.schema.json",
+  "assertions": [
+    "does not invent sequential behavior for an unresolved FF-like cell",
+    "emits the unresolved object instead of tracing through it"
+  ]
+}

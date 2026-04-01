@@ -1,0 +1,58 @@
+{
+  "module": "simple_hard_path",
+  "file": "datasets/fixtures/timing/simple_hard_path.sv",
+  "config": "default",
+  "registers": [
+    {
+      "name": "sum_r",
+      "width": 8,
+      "clock": "clk",
+      "source": "always_ff",
+      "line": 11
+    },
+    {
+      "name": "out_r",
+      "width": 8,
+      "clock": "clk",
+      "source": "always_ff",
+      "line": 15
+    }
+  ],
+  "paths": [
+    {
+      "id": "PATH-001",
+      "from": "sum_r",
+      "to": "out_r",
+      "depth": 10,
+      "difficulty": "hard",
+      "stages": [
+        {
+          "op": "adder",
+          "width": 8,
+          "depth": 10,
+          "line": 15
+        }
+      ],
+      "crosses_module": false,
+      "description": "The sum_r to out_r path contains one 8-bit adder in the destination assignment.",
+      "suggestion": "Insert a pipeline stage before the adder or pre-compute part of the arithmetic in an earlier cycle."
+    }
+  ],
+  "unresolved": [],
+  "summary": {
+    "total_registers": 2,
+    "total_paths": 1,
+    "by_difficulty": {
+      "critical": 0,
+      "hard": 1,
+      "moderate": 0,
+      "easy": 0
+    },
+    "deepest_path": {
+      "id": "PATH-001",
+      "depth": 10,
+      "from": "sum_r",
+      "to": "out_r"
+    }
+  }
+}

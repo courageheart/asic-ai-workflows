@@ -1,0 +1,13 @@
+{
+  "eval_name": "explicit-2ff",
+  "skill": "rtl-cdc-linter",
+  "input_files": [
+    "datasets/fixtures/cdc/explicit_2ff.sv"
+  ],
+  "expected_output": "evals/smoke/rtl-cdc-linter/explicit-2ff/expected.yaml",
+  "schema": "schemas/cdc-report.schema.json",
+  "assertions": [
+    "omits synchronized crossings from the crossings list",
+    "counts the protected crossing in summary.by_severity.info"
+  ]
+}

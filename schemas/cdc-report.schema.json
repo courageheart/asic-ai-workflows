@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RTL CDC Linter Report",
+  "type": "object",
+  "required": [
+    "module",
+    "file",
+    "clock_domains",
+    "crossings",
+    "summary"
+  ],
+  "properties": {
+    "module": {
+      "type": "string"
+    },
+    "file": {
+      "type": "string"
+    },
+    "clock_domains": {
+      "type": "array"
+    },
+    "crossings": {
+      "type": "array"
+    },
+    "summary": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

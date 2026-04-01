@@ -1,0 +1,13 @@
+{
+  "eval_name": "simple-hard-path",
+  "skill": "rtl-timing-path-analyzer",
+  "input_files": [
+    "datasets/fixtures/timing/simple_hard_path.sv"
+  ],
+  "expected_output": "evals/smoke/rtl-timing-path-analyzer/simple-hard-path/expected.yaml",
+  "schema": "schemas/timing-report.schema.json",
+  "assertions": [
+    "reports the reg-to-reg adder path as hard",
+    "sorts the single listed path by descending depth"
+  ]
+}

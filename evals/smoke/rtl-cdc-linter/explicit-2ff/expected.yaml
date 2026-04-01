@@ -1,0 +1,24 @@
+{
+  "module": "explicit_2ff",
+  "file": "datasets/fixtures/cdc/explicit_2ff.sv",
+  "clock_domains": [
+    {
+      "name": "src_clk"
+    },
+    {
+      "name": "dst_clk"
+    }
+  ],
+  "crossings": [],
+  "summary": {
+    "total_crossings": 1,
+    "violations": 0,
+    "by_severity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 1
+    }
+  }
+}

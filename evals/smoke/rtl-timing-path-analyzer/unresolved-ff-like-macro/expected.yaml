@@ -1,0 +1,30 @@
+{
+  "module": "unresolved_ff_like_macro",
+  "file": "datasets/fixtures/timing/unresolved_ff_like_macro.sv",
+  "config": "default",
+  "registers": [],
+  "paths": [],
+  "unresolved": [
+    {
+      "name": "MY_DFF_X1",
+      "line": 6,
+      "reason": "unknown cell library"
+    }
+  ],
+  "summary": {
+    "total_registers": 0,
+    "total_paths": 0,
+    "by_difficulty": {
+      "critical": 0,
+      "hard": 0,
+      "moderate": 0,
+      "easy": 0
+    },
+    "deepest_path": {
+      "id": "PATH-000",
+      "depth": 0,
+      "from": "NONE",
+      "to": "NONE"
+    }
+  }
+}

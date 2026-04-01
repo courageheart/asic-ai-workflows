@@ -1,0 +1,13 @@
+{
+  "eval_name": "unsync-single-bit",
+  "skill": "rtl-cdc-linter",
+  "input_files": [
+    "datasets/fixtures/cdc/unsync_single_bit.sv"
+  ],
+  "expected_output": "evals/smoke/rtl-cdc-linter/unsync-single-bit/expected.yaml",
+  "schema": "schemas/cdc-report.schema.json",
+  "assertions": [
+    "reports exactly one high-severity crossing",
+    "uses the destination consume line for the crossing"
+  ]
+}

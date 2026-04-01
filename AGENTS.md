@@ -56,14 +56,32 @@ Current implemented rules:
 - `rules/cdc/classification.md`
 - `rules/timing/register-evidence.md`
 
+Current implemented schemas:
+
+- `schemas/cdc-report.schema.json`
+- `schemas/timing-report.schema.json`
+
+Current implemented smoke assets:
+
+- `datasets/fixtures/cdc/`
+- `datasets/fixtures/timing/`
+- `evals/smoke/rtl-cdc-linter/`
+- `evals/smoke/rtl-timing-path-analyzer/`
+
 Current supporting files:
 
 - `skills/rtl-timing-path-analyzer/default_config.yaml`
+- `.github/workflows/ci.yml`
+- `.github/pull_request_template.md`
+- `scripts/repo_lint.py`
+- `scripts/check_skill_contracts.py`
+- `scripts/check_eval_smoke.py`
 
 Important current limitation:
 
-- `flows/`, `schemas/`, and `datasets/` are described in the README vision, but are
-  not yet present in this clone. Do not assume they already exist.
+- `flows/` are still part of the project vision but are not yet present in this clone.
+- The smoke-eval layer currently validates fixtures, schemas, metadata, and golden
+  outputs; it does not yet execute live model runs.
 
 ## Source Of Truth
 

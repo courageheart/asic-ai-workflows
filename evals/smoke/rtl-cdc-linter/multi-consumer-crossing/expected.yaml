@@ -1,0 +1,42 @@
+{
+  "module": "multi_consumer_crossing",
+  "file": "datasets/fixtures/cdc/multi_consumer_crossing.sv",
+  "clock_domains": [
+    {
+      "name": "src_clk"
+    },
+    {
+      "name": "dst_clk"
+    }
+  ],
+  "crossings": [
+    {
+      "id": "CDC-001",
+      "signal": "flag_a",
+      "width": 1,
+      "source_domain": "src_clk",
+      "dest_domain": "dst_clk",
+      "line": [
+        15,
+        19
+      ],
+      "direction": "src_clk -> dst_clk",
+      "synchronized": false,
+      "sync_method": "none",
+      "severity": "high",
+      "description": "Signal flag_a crosses once into dst_clk but is consumed at two unsafe destinations.",
+      "fix": "Add one 2-FF synchronizer in the dst_clk domain and feed both consumers from the synchronized signal."
+    }
+  ],
+  "summary": {
+    "total_crossings": 1,
+    "violations": 1,
+    "by_severity": {
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    }
+  }
+}

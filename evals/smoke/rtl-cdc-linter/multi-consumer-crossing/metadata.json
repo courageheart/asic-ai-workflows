@@ -1,0 +1,13 @@
+{
+  "eval_name": "multi-consumer-crossing",
+  "skill": "rtl-cdc-linter",
+  "input_files": [
+    "datasets/fixtures/cdc/multi_consumer_crossing.sv"
+  ],
+  "expected_output": "evals/smoke/rtl-cdc-linter/multi-consumer-crossing/expected.yaml",
+  "schema": "schemas/cdc-report.schema.json",
+  "assertions": [
+    "deduplicates a single crossing consumed at multiple destination sites",
+    "stores all consume sites in the line list"
+  ]
+}
