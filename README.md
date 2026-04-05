@@ -201,6 +201,9 @@ Contributions are welcome, but must follow:
 - Engineering-grade quality  
 - Reproducible examples  
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the pull-request flow diagram and
+validation checklist.
+
 Avoid:
 - Unstructured prompts  
 - Vague outputs  

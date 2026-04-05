@@ -91,6 +91,19 @@ If you changed YAML handling locally, install `PyYAML` first so
 This repo already includes a PR template in `.github/pull_request_template.md`.
 Please follow it.
 
+Contribution flow:
+
+```mermaid
+flowchart TD
+    Pick[Pick one change] --> A[Add or refine skill]
+    Pick --> B[Promote shared policy into rules/]
+    Pick --> C[Extend or add flow]
+    A --> Smoke[Update evals/smoke/]
+    B --> Smoke
+    C --> Smoke
+    Smoke --> PR[Open GitHub PR]
+```
+
 In your PR description, include:
 
 - what artifact type you changed
