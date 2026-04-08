@@ -1,0 +1,71 @@
+name: Trigger Portal Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "skills/**"
+      - "rules/**"
+      - "flows/**"
+      - "evals/smoke/**"
+      - "README.md"
+      - "AGENTS.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  trigger-portal:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Check dispatch configuration
+        id: dispatch_config
+        env:
+          PORTAL_REPO_DISPATCH_TOKEN: ${{ secrets.PORTAL_REPO_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$PORTAL_REPO_DISPATCH_TOKEN" ]; then
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping portal rebuild dispatch because PORTAL_REPO_DISPATCH_TOKEN is not configured."
+            exit 0
+          fi
+          echo "enabled=true" >> "$GITHUB_OUTPUT"
+
+      - name: Dispatch portal rebuild
+        if: steps.dispatch_config.outputs.enabled == 'true'
+        env:
+          PORTAL_REPO_DISPATCH_TOKEN: ${{ secrets.PORTAL_REPO_DISPATCH_TOKEN }}
+        run: |
+          response_file="$(mktemp)"
+          http_code="$(
+            curl --silent --show-error \
+              --output "$response_file" \
+              --write-out "%{http_code}" \
+              -X POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer ${PORTAL_REPO_DISPATCH_TOKEN}" \
+              https://api.github.com/repos/asicdesign-ai/asicdesign-ai-portal/dispatches \
+              -d @- <<EOF
+          {
+            "event_type": "workflows_changed",
+            "client_payload": {
+              "source_repo": "${GITHUB_REPOSITORY}",
+              "source_ref": "${GITHUB_REF_NAME}",
+              "source_sha": "${GITHUB_SHA}"
+            }
+          }
+          EOF
+          )"
+
+          if [ "$http_code" != "204" ]; then
+            echo "Portal rebuild dispatch failed with HTTP $http_code."
+            if [ -s "$response_file" ]; then
+              cat "$response_file"
+            fi
+            exit 1
+          fi
