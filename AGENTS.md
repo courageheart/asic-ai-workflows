@@ -132,6 +132,7 @@ Current supporting files:
 - `scripts/check_skill_contracts.py`
 - `scripts/check_flow_contracts.py`
 - `scripts/check_eval_smoke.py`
+- `scripts/check_rtl_compile.py`
 - `scripts/report_validators.py`
 
 Important current limitation:
@@ -140,6 +141,14 @@ Important current limitation:
   outputs; it does not yet execute live model runs.
 - The DV flow is a planning workflow that emits structured verification plans. It
   does not generate runnable UVM infrastructure.
+
+Current RTL compile policy:
+
+- GitHub CI runs Verilator on every `.sv` and `.v` file in the repository.
+- Multi-file RTL hierarchies must provide a `.f` filelist that captures the
+  intended top-level compile unit and all required source files.
+- GitHub CI also runs a `slang` frontend check on the same compile units.
+- `slang` warnings are reported for visibility, but only `slang` errors fail CI.
 
 ## Source Of Truth
 

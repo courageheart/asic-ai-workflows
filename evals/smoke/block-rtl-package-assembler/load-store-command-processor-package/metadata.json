@@ -1,0 +1,16 @@
+{
+  "eval_name": "load-store-command-processor-package",
+  "skill": "block-rtl-package-assembler",
+  "input_files": [
+    "datasets/fixtures/rtl-plan/load_store_command_processor_brief.md",
+    "datasets/fixtures/rtl-plan/load_store_command_processor_spec.md",
+    "datasets/fixtures/rtl-plan/load_store_command_processor.sv"
+  ],
+  "expected_output": "evals/smoke/block-rtl-package-assembler/load-store-command-processor-package/expected.yaml",
+  "schema": "schemas/block-rtl-package.schema.json",
+  "assertions": [
+    "captures addressed STORE behavior and automatic LOAD policy in one handoff package",
+    "preserves REQ-NNN traceability from the microarchitecture into RTL signals",
+    "marks the package ready for downstream block-dv-plan use with no unresolved items"
+  ]
+}

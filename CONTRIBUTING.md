@@ -81,10 +81,19 @@ Run the same checks the repo uses in CI:
 
 `python3 scripts/check_eval_smoke.py`
 
+`python3 scripts/check_rtl_compile.py`
+
+Optional if `pyslang` is installed locally:
+
+`python3 scripts/check_rtl_slang.py`
+
 If you changed YAML handling locally, install `PyYAML` first so
 `check_structured_files.py` can run:
 
 `python3 -m pip install PyYAML`
+
+If you add RTL that depends on multiple source files, also add a `.f` filelist
+so the Verilator CI check can compile the intended hierarchy.
 
 ## Pull requests
 

@@ -1,0 +1,262 @@
+{
+  "design": {
+    "top_module": "load_store_command_processor",
+    "brief_summary": "Four-slot 32-bit store/load command processor with automatic work-register load.",
+    "rtl_files": [
+      "datasets/fixtures/rtl-plan/load_store_command_processor.sv"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "title": "store 32-bit data into addressed slot",
+      "category": "function",
+      "priority": "must",
+      "source": "user",
+      "description": "The block writes store_data_i into the slot selected by store_addr_i when store_valid_i is asserted.",
+      "acceptance_criteria": "Each asserted store_valid_i updates the addressed slot and marks it valid for later load."
+    },
+    {
+      "id": "REQ-002",
+      "title": "implement four-slot addressed storage",
+      "category": "interface",
+      "priority": "must",
+      "source": "user",
+      "description": "The storage array provides four 32-bit flip-flop slots addressed by store_addr_i[1:0].",
+      "acceptance_criteria": "All STORE operations resolve to one of four addressed 32-bit slots."
+    },
+    {
+      "id": "REQ-003",
+      "title": "auto-load lowest valid slot into work register",
+      "category": "function",
+      "priority": "must",
+      "source": "user",
+      "description": "When at least one slot is valid and downstream_ready_i is high, the block loads the lowest-address valid slot into the WORK register.",
+      "acceptance_criteria": "With stored data present and downstream_ready_i high, the next accepted work output corresponds to the lowest-address valid slot."
+    },
+    {
+      "id": "REQ-004",
+      "title": "clear loaded slot validity",
+      "category": "function",
+      "priority": "must",
+      "source": "user",
+      "description": "A successful load clears the selected slot valid bit so the same entry is not loaded again.",
+      "acceptance_criteria": "After a load from address A, that slot is not eligible for another load until a new STORE rewrites address A."
+    },
+    {
+      "id": "REQ-005",
+      "title": "clear state on reset",
+      "category": "clock_reset",
+      "priority": "must",
+      "source": "user",
+      "description": "Reset clears storage validity and empties the WORK register interface state.",
+      "acceptance_criteria": "After reset, all slot valid bits are zero, work_data_o is zero, and work_valid_o is low."
+    }
+  ],
+  "ppa_targets": {
+    "performance": {
+      "target": "moderate single-clock control path",
+      "units": null,
+      "priority": "primary",
+      "status": "qualitative"
+    },
+    "power": {
+      "target": "low toggle activity when idle",
+      "units": null,
+      "priority": "secondary",
+      "status": "qualitative"
+    },
+    "area": {
+      "target": "small register-based block",
+      "units": null,
+      "priority": "secondary",
+      "status": "qualitative"
+    }
+  },
+  "spec": {
+    "artifact_path": "datasets/fixtures/rtl-plan/load_store_command_processor_spec.md",
+    "requirements_trace": [
+      {
+        "requirement_id": "REQ-001",
+        "spec_sections": [
+          "overview",
+          "store_path"
+        ],
+        "coverage": "full"
+      },
+      {
+        "requirement_id": "REQ-002",
+        "spec_sections": [
+          "interfaces",
+          "storage_organization"
+        ],
+        "coverage": "full"
+      },
+      {
+        "requirement_id": "REQ-003",
+        "spec_sections": [
+          "overview",
+          "load_policy"
+        ],
+        "coverage": "full"
+      },
+      {
+        "requirement_id": "REQ-004",
+        "spec_sections": [
+          "load_policy"
+        ],
+        "coverage": "full"
+      },
+      {
+        "requirement_id": "REQ-005",
+        "spec_sections": [
+          "reset_behavior"
+        ],
+        "coverage": "full"
+      }
+    ],
+    "diagrams": [
+      {
+        "tool": "blockdiag",
+        "title": "store to work-register datapath",
+        "purpose": "block_diagram",
+        "artifact_path": "artifacts/microarchitecture/diagrams/load_store_command_processor.diag",
+        "content": "blockdiag { store_if -> slot_array -> load_selector -> work_reg -> downstream_if; }"
+      }
+    ]
+  },
+  "rtl": {
+    "source_files": [
+      {
+        "path": "datasets/fixtures/rtl-plan/load_store_command_processor.sv",
+        "module": "load_store_command_processor",
+        "language": "systemverilog",
+        "content": "module load_store_command_processor (input logic clk_i, input logic rst_n, input logic store_valid_i, input logic [1:0] store_addr_i, input logic [31:0] store_data_i, input logic downstream_ready_i, output logic [31:0] work_data_o, output logic work_valid_o); endmodule"
+      }
+    ],
+    "rtl_modules": [
+      {
+        "name": "load_store_command_processor",
+        "role": "top",
+        "clocks": [
+          "clk_i"
+        ],
+        "resets": [
+          "rst_n"
+        ],
+        "description": "Single-clock command processor with addressed store array and auto-load work register."
+      }
+    ],
+    "traceability": [
+      {
+        "requirement_id": "REQ-001",
+        "spec_sections": [
+          "store_path"
+        ],
+        "rtl_files": [
+          "datasets/fixtures/rtl-plan/load_store_command_processor.sv"
+        ],
+        "rtl_signals": [
+          "store_valid_i",
+          "store_addr_i",
+          "store_data_i",
+          "mem_d"
+        ]
+      },
+      {
+        "requirement_id": "REQ-002",
+        "spec_sections": [
+          "interfaces",
+          "storage_organization"
+        ],
+        "rtl_files": [
+          "datasets/fixtures/rtl-plan/load_store_command_processor.sv"
+        ],
+        "rtl_signals": [
+          "store_addr_i",
+          "mem_q"
+        ]
+      },
+      {
+        "requirement_id": "REQ-003",
+        "spec_sections": [
+          "load_policy"
+        ],
+        "rtl_files": [
+          "datasets/fixtures/rtl-plan/load_store_command_processor.sv"
+        ],
+        "rtl_signals": [
+          "downstream_ready_i",
+          "load_pending",
+          "load_addr",
+          "work_reg_q",
+          "work_valid_q"
+        ]
+      },
+      {
+        "requirement_id": "REQ-004",
+        "spec_sections": [
+          "load_policy"
+        ],
+        "rtl_files": [
+          "datasets/fixtures/rtl-plan/load_store_command_processor.sv"
+        ],
+        "rtl_signals": [
+          "load_fire",
+          "mem_valid_d"
+        ]
+      },
+      {
+        "requirement_id": "REQ-005",
+        "spec_sections": [
+          "reset_behavior"
+        ],
+        "rtl_files": [
+          "datasets/fixtures/rtl-plan/load_store_command_processor.sv"
+        ],
+        "rtl_signals": [
+          "rst_n",
+          "mem_q",
+          "mem_valid_q",
+          "work_reg_q",
+          "work_valid_q"
+        ]
+      }
+    ]
+  },
+  "audit_summary": {
+    "lint": {
+      "total_findings": 0,
+      "blocking_findings": 0
+    },
+    "cdc": {
+      "violations": 0,
+      "highest_severity": "none"
+    },
+    "rdc": {
+      "violations": 0,
+      "highest_severity": "none"
+    },
+    "timing": {
+      "hard_or_worse_paths": 0,
+      "deepest_path_depth": 4
+    },
+    "ready_for_dv_handoff": true
+  },
+  "unresolved": [],
+  "downstream_handoff": {
+    "recommended_flow": "block-dv-plan",
+    "top_module": "load_store_command_processor",
+    "rtl_files": [
+      "datasets/fixtures/rtl-plan/load_store_command_processor.sv"
+    ],
+    "design_intent_markdown": "datasets/fixtures/rtl-plan/load_store_command_processor_spec.md",
+    "notes": "Use the microarchitecture spec as the design-intent brief for the downstream DV planning flow."
+  },
+  "summary": {
+    "total_requirements": 5,
+    "total_rtl_files": 1,
+    "total_blocking_issues": 0,
+    "total_unresolved": 0
+  }
+}

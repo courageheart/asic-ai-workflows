@@ -160,6 +160,12 @@ Current validation approach:
 - skill contract checks
 - flow contract checks
 - schema-backed smoke-eval asset validation
+- Verilator compilation of every Verilog and SystemVerilog file in the repo
+- `slang` frontend diagnostics across the same RTL compile units, with CI failing
+  only on errors and logging warnings without failing
+
+For hierarchical RTL that depends on multiple source files, add a `.f` filelist
+so CI can compile the intended top-level unit with its full file set.
 
 The current smoke layer validates fixtures, metadata, and golden outputs. It does
 not yet execute live LLM runs against the corpus.

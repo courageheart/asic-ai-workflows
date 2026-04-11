@@ -8,6 +8,10 @@
 - keep `flow-contracts` for flow metadata, rule references, skill references, and
   output examples
 - keep `eval-smoke` for schema-backed smoke asset validation
+- keep `rtl-compile` for Verilator compilation of every `.sv` and `.v` file,
+  with `.f` filelists for multi-file hierarchies
+- keep `rtl-slang` as an error-gating semantic frontend check that still logs
+  warnings for additional RTL diagnostics beyond Verilator
 
 ## Near-term repository direction
 
@@ -36,5 +40,4 @@
 
 ## Deferred work
 
-- add a Verilator compilation task later as a separate CI check
-- do not add the Verilator task in the current change set
+- consider whether a second simulator check adds enough signal to justify longer CI

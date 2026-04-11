@@ -83,3 +83,34 @@ jobs:
 
       - name: Validate smoke eval assets
         run: python3 scripts/check_eval_smoke.py
+
+  rtl-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Verilator
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y verilator
+
+      - name: Compile every Verilog/SystemVerilog file with Verilator
+        run: python3 scripts/check_rtl_compile.py
+
+  rtl-slang:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pyslang
+        run: python3 -m pip install pyslang==10.0.0
+
+      - name: Run slang frontend check
+        run: python3 scripts/check_rtl_slang.py
